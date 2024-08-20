@@ -1,0 +1,24 @@
+{
+  "name": "NMTAFE/SaaS-Vanilla-MVC",
+  "description": "Vanilla PHP MVC Framework Demo",
+  "minimum-stability": "stable",
+  "license": "TBA",
+  "authors": [
+    {
+      "name": "Adrian Gould",
+      "email": "Adrian.Gould@nmtafe.wa.edu.au"
+    },
+    {
+      "name": "Brad Traversy",
+      "email": "support@traversymedia.com"
+    }
+  ],
+  "require": {
+  },
+  "autoload": {
+    "psr-4": {
+      "Framework\\": "Framework/",
+      "App\\": "App/"
+    }
+  }
+}
