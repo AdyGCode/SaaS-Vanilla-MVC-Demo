@@ -1,5 +1,5 @@
 {
-  "name": "NMTAFE/SaaS-Vanilla-MVC",
+  "name": "nmtafe/saas-vanilla-mvc",
   "description": "Vanilla PHP MVC Framework Demo",
   "minimum-stability": "stable",
   "license": "TBA",
@@ -14,6 +14,7 @@
     }
   ],
   "require": {
+    "php": ">=8.0"
   },
   "autoload": {
     "psr-4": {

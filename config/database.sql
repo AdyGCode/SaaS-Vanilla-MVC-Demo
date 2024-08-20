@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `products`
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
 
--- Insert data into 'listings' table
+-- Insert data into 'products' table
 INSERT INTO `products`(`id`, `name`, `description`, `price`, `created_at`)
 VALUES (40380, 'Sheep BrickHeadz',
         'BrickHeadz theme: This set features an adorable sheep with a cute, blocky design, perfect for collectors and fans of the BrickHeadz series.',

@@ -31,16 +31,16 @@ class HomeController
     }
 
     /*
-     * Show the latest listings
+     * Show the latest products
      *
      * @return void
      */
     public function index()
     {
-        $listings = $this->db->query('SELECT * FROM listings ORDER BY created_at DESC LIMIT 6')->fetchAll();
+        $products = $this->db->query('SELECT * FROM products ORDER BY created_at DESC LIMIT 6')->fetchAll();
 
         loadView('home', [
-            'listings' => $listings
+            'products' => $products
         ]);
     }
 }
