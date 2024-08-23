@@ -33,5 +33,7 @@ $routes = require basePath('routes.php');
 // Get current URI and HTTP method
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
+//echo password_hash("Password1",PASSWORD_DEFAULT);
+//die;
 // Route the request
 $router->route($uri);

@@ -32,30 +32,6 @@ class Session
     }
 
     /**
-     * Set a session key/value pair
-     *
-     * @param string $key
-     * @param mixed $value
-     * @return void
-     */
-    public static function set($key, $value)
-    {
-        $_SESSION[$key] = $value;
-    }
-
-    /**
-     * Get a session value by the key
-     *
-     * @param string $key
-     * @param mixed $default
-     * @return mixed
-     */
-    public static function get($key, $default = null)
-    {
-        return isset($_SESSION[$key]) ? $_SESSION[$key] : $default;
-    }
-
-    /**
      * Check if session key exists
      *
      * @param string $key
@@ -64,19 +40,6 @@ class Session
     public static function has($key)
     {
         return isset($_SESSION[$key]);
-    }
-
-    /**
-     * Clear session by key
-     *
-     * @param string $key
-     * @return void
-     */
-    public static function clear($key)
-    {
-        if (isset($_SESSION[$key])) {
-            unset($_SESSION[$key]);
-        }
     }
 
     /**
@@ -103,6 +66,18 @@ class Session
     }
 
     /**
+     * Set a session key/value pair
+     *
+     * @param string $key
+     * @param mixed $value
+     * @return void
+     */
+    public static function set($key, $value)
+    {
+        $_SESSION[$key] = $value;
+    }
+
+    /**
      * Get a flash message and unset
      *
      * @param string $key
@@ -114,5 +89,30 @@ class Session
         $message = self::get('flash_' . $key, $default);
         self::clear('flash_' . $key);
         return $message;
+    }
+
+    /**
+     * Get a session value by the key
+     *
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
+    public static function get($key, $default = null)
+    {
+        return isset($_SESSION[$key]) ? $_SESSION[$key] : $default;
+    }
+
+    /**
+     * Clear session by key
+     *
+     * @param string $key
+     * @return void
+     */
+    public static function clear($key)
+    {
+        if (isset($_SESSION[$key])) {
+            unset($_SESSION[$key]);
+        }
     }
 }

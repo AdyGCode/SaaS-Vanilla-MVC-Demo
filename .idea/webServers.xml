@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="7a13c3b5-f998-4a03-ab6e-6947e354a3b8" name="SaaS Vanilla MVC Server" url="http://saas-vanilla-mvc.test">
+        <fileTransfer accessType="LOCAL" port="0" />
+      </webServer>
+    </option>
+  </component>
+</project>

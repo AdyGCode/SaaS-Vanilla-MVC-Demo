@@ -19,14 +19,25 @@ namespace Framework;
 
 
 use App\Controllers\ErrorController;
-
-// use Framework\Middleware\Authorize;
+use Framework\Middleware\Authorise;
 
 class Router
 {
 
     protected $routes = [];
 
+    /**
+     * Add a GET route
+     *
+     * @param string $uri
+     * @param string $controller
+     * @param array $middleware
+     * @return void
+     */
+    public function get($uri, $controller, $middleware = [])
+    {
+        $this->registerRoute('GET', $uri, $controller, $middleware);
+    }
 
     /**
      * Add a new route
@@ -53,20 +64,6 @@ class Router
             'controllerMethod' => $controllerMethod,
             'middleware' => $middleware
         ];
-    }
-
-
-    /**
-     * Add a GET route
-     *
-     * @param string $uri
-     * @param string $controller
-     * @param array $middleware
-     * @return void
-     */
-    public function get($uri, $controller, $middleware = [])
-    {
-        $this->registerRoute('GET', $uri, $controller, $middleware);
     }
 
     /**
@@ -159,7 +156,7 @@ class Router
 
                 if ($match) {
                     foreach ($route['middleware'] as $middleware) {
-                        (new Authorize())->handle($middleware);
+                        (new Authorise())->handle($middleware);
                     }
 
                     $controller = 'App\\controllers\\' . $route['controller'];

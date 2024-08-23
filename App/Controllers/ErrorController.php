@@ -15,7 +15,7 @@
  *
  */
 
-namespace App\controllers;
+namespace App\Controllers;
 
 class ErrorController
 {

@@ -49,7 +49,7 @@ function loadView($name, $data = [])
  * Load a partial
  *
  * @param string $name
- * @return void
+ * @return string
  *
  */
 function loadPartial($name, $data = [])

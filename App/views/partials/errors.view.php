@@ -6,13 +6,18 @@
  * MAY BE MORE THAN ONE LINE LONG
  * KEEP LINE LENGTH TO NO MORE THAN 96 CHARACTERS
  *
- * Filename:        home.php
+ * Filename:        errors.view.php
  * Location:        ${FILE_LOCATION}
- * Project:         SaaS-FED-Notes
- * Date Created:    20/08/2024
+ * Project:         SaaS-Vanilla-MVC
+ * Date Created:    23/08/2024
  *
  * Author:          Adrian Gould <Adrian.Gould@nmtafe.wa.edu.au>
  *
  */
 
-loadView('404');
+if (isset($errors)) :
+    foreach ($errors as $error) : ?>
+        <div class="message bg-red-100 my-3"><?= $error ?></div>
+    <?php
+    endforeach;
+endif;

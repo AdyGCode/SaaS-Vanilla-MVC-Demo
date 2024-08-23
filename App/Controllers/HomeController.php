@@ -15,7 +15,7 @@
  *
  */
 
-namespace App\controllers;
+namespace App\Controllers;
 
 
 use Framework\Database;
@@ -39,8 +39,14 @@ class HomeController
     {
         $products = $this->db->query('SELECT * FROM products ORDER BY created_at DESC LIMIT 6')->fetchAll();
 
+        $productCount = $this->db->query('SELECT count(id) as total FROM products ')->fetch();
+
+        $userCount = $this->db->query('SELECT count(id) as total FROM users')->fetch();
+
         loadView('home', [
-            'products' => $products
+            'products' => $products,
+            'productCount' => $productCount,
+            'userCount' => $userCount,
         ]);
     }
 }

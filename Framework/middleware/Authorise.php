@@ -6,7 +6,7 @@
  * MAY BE MORE THAN ONE LINE LONG
  * KEEP LINE LENGTH TO NO MORE THAN 96 CHARACTERS
  *
- * Filename:        Authorize.php
+ * Filename:        Authorise.php
  * Location:
  * Project:         SaaS-Vanilla-MVC
  * Date Created:    20/08/2024
@@ -19,18 +19,8 @@ namespace Framework\Middleware;
 
 use Framework\Session;
 
-class Authorize
+class Authorise
 {
-    /**
-     * Check if user is authenticated
-     *
-     * @return bool
-     */
-    public function isAuthenticated()
-    {
-        return Session::has('user');
-    }
-
     /**
      * Handle the user's request
      *
@@ -44,5 +34,15 @@ class Authorize
         } elseif ($role === 'auth' && !$this->isAuthenticated()) {
             return redirect('/auth/login');
         }
+    }
+
+    /**
+     * Check if user is authenticated
+     *
+     * @return bool
+     */
+    public function isAuthenticated()
+    {
+        return Session::has('user');
     }
 }

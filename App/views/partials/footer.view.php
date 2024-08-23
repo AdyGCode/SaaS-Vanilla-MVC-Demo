@@ -16,9 +16,10 @@
  */
 ?>
 
-<footer class="bg-black text-gray-400 p-4 mt-8">
+<footer class="bg-black text-text-zinc-700-400 p-4 mt-8">
     The footer
 </footer>
+
 </body>
 </html>
 

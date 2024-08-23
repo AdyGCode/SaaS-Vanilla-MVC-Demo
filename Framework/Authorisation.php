@@ -17,8 +17,6 @@
 
 namespace Framework;
 
-use Framework\Session;
-
 class Authorisation
 {
     /**

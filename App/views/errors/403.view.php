@@ -5,10 +5,9 @@ loadPartial('navigation');
 
 ?>
 
-<main class="container mx-auto bg-gray-100 py-8 px-4 flex flex-col min-h-screen shadow shadow-black/25 rounded-b-lg">
-    <article class="flex-1">
-
-        <header class="bg-gray-700 text-gray-200 -mx-4 -mt-8 p-8 text-2xl font-bold mb-8">
+<main class="container mx-auto bg-zinc-50 py-8 px-4 shadow shadow-black/25 rounded-b-lg">
+    <article>
+        <header class="bg-text-zinc-700-700 text-text-zinc-700-200 -mx-4 -mt-8 p-8 text-2xl font-bold mb-8">
             <h1>Bad User</h1>
         </header>
 
