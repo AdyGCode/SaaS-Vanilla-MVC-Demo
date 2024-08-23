@@ -31,7 +31,9 @@ class Authorise
     {
         if ($role === 'guest' && $this->isAuthenticated()) {
             return redirect('/');
-        } elseif ($role === 'auth' && !$this->isAuthenticated()) {
+        }
+
+        if ($role === 'auth' && !$this->isAuthenticated()) {
             return redirect('/auth/login');
         }
     }

@@ -44,7 +44,7 @@ class Router
      *
      * Adds a GET|POST|PUT|DELETE route to the $routes array.
      *
-     * Use: $this->registerRoute("METHOD", $uri, $action, $middleware)
+     * Use: $this->registerRoute("METHOD", $uri, $action, $Middleware)
      *
      * @param string $method
      * @param string $uri
@@ -62,7 +62,7 @@ class Router
             'uri' => $uri,
             'controller' => $controller,
             'controllerMethod' => $controllerMethod,
-            'middleware' => $middleware
+            'Middleware' => $middleware
         ];
     }
 
@@ -140,22 +140,22 @@ class Router
                 $params = [];
 
                 $match = true;
-
-                for ($i = 0; $i < count($uriSegments); $i++) {
+                $segments = count($uriSegments);
+                for ($i = 0; $i < $segments; $i++) {
                     // If the uri's do not match and there is no param
-                    if ($routeSegments[$i] !== $uriSegments[$i] && !preg_match('/\{(.+?)\}/', $routeSegments[$i])) {
+                    if ($routeSegments[$i] !== $uriSegments[$i] && !preg_match('/\{(.+?)}/', $routeSegments[$i])) {
                         $match = false;
                         break;
                     }
 
                     // Check for the param and add to $params array
-                    if (preg_match('/\{(.+?)\}/', $routeSegments[$i], $matches)) {
+                    if (preg_match('/\{(.+?)}/', $routeSegments[$i], $matches)) {
                         $params[$matches[1]] = $uriSegments[$i];
                     }
                 }
 
                 if ($match) {
-                    foreach ($route['middleware'] as $middleware) {
+                    foreach ($route['Middleware'] as $middleware) {
                         (new Authorise())->handle($middleware);
                     }
 
