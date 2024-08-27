@@ -93,6 +93,36 @@ function inspectAndDie($value)
 
 
 /**
+ * Dump the values of one or more variables, objects or similar.
+ *
+ * @return void
+ */
+ function dump(): void
+{
+    echo "<pre class='bg-gray-100 color-black m-2 p-2 rounded shadow flex-grow text-sm'>";
+    array_map(function ($x) {
+        var_dump($x);
+    }, func_get_args());
+    echo "</pre>";
+}
+
+/**
+ * Dump the values of one or more variables, objects or similar, then terminate the script.
+ *
+ * @return void
+ */
+ function dd(): void
+{
+    echo "<pre class='bg-gray-100 color-black m-2 p-2 rounded shadow flex-grow text-sm'>";
+    array_map(function ($x) {
+        var_dump($x);
+    }, func_get_args());
+    echo "</pre>";
+    die();
+}
+
+
+/**
  * Sanitize Data
  *
  * @param string $dirty

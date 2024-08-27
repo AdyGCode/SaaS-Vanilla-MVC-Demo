@@ -26,25 +26,17 @@ class Router
 
     protected $routes = [];
 
-    /**
-     * Add a GET route
-     *
-     * @param string $uri
-     * @param string $controller
-     * @param array $middleware
-     * @return void
-     */
-    public function get($uri, $controller, $middleware = [])
-    {
-        $this->registerRoute('GET', $uri, $controller, $middleware);
-    }
+
 
     /**
      * Add a new route
      *
      * Adds a GET|POST|PUT|DELETE route to the $routes array.
      *
-     * Use: $this->registerRoute("METHOD", $uri, $action, $Middleware)
+     * Use:
+     * <code>
+     *     $this->registerRoute("METHOD", $uri, $action, $Middleware)
+     * </code>
      *
      * @param string $method
      * @param string $uri
@@ -64,6 +56,20 @@ class Router
             'controllerMethod' => $controllerMethod,
             'Middleware' => $middleware
         ];
+    }
+
+
+    /**
+     * Add a GET route
+     *
+     * @param string $uri
+     * @param string $controller
+     * @param array $middleware
+     * @return void
+     */
+    public function get($uri, $controller, $middleware = [])
+    {
+        $this->registerRoute('GET', $uri, $controller, $middleware);
     }
 
     /**
@@ -159,7 +165,7 @@ class Router
                         (new Authorise())->handle($middleware);
                     }
 
-                    $controller = 'App\\controllers\\' . $route['controller'];
+                    $controller = 'App\\Controllers\\' . $route['controller'];
                     $controllerMethod = $route['controllerMethod'];
 
                     // Instantiate the controller and call the method
