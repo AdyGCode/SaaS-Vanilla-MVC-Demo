@@ -1,13 +1,9 @@
 <?php
 /**
- * FILE TITLE GOES HERE
- *
- * DESCRIPTION OF THE PURPOSE AND USE OF THE CODE
- * MAY BE MORE THAN ONE LINE LONG
- * KEEP LINE LENGTH TO NO MORE THAN 96 CHARACTERS
+ * Header template - (HTML 'head')
  *
  * Filename:        header.view.php
- * Location:        ${FILE_LOCATION}
+ * Location:        App/views/partials
  * Project:         SaaS-FED-Notes
  * Date Created:    20/08/2024
  *
@@ -21,7 +17,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Document</title>
-    <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="stylesheet" href="/assets/css/site.css">
 </head>
 <body class="bg-white flex flex-col h-screen justify-between">
 

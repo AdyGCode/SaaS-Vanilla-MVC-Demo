@@ -30,39 +30,61 @@ loadPartial('navigation');
             </p>
 
         </header>
-        <section class="max-w-192 min-w-64 bg-white shadow rounded p-2 flex flex-col">
-            <header class="-mx-2 bg-zinc-700 text-zinc-200 text-lg p-4 -mt-2 mb-4 rounded-t flex-0 flex justify-between">
-                <h4>
-                    <?= $product->name ?>
-                </h4>
-                <?php if (Framework\Authorisation::isOwner($product->user_id)) : ?>
-                    <div class="flex space-x-4 ml-4">
-                        <a href="/products/edit/<?= $product->id ?>"
-                           class="px-8 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded transition ease-in-out duration-500">
-                            Edit
-                        </a>
-                        <!-- Delete Form -->
-                        <form method="POST">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit"
-                                    class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded transition ease-in-out duration-500">Delete</button>
-                        </form>
-                        <!-- End Delete Form -->
-                    </div>
-                <?php endif; ?>
-            </header>
+        <section class="w-full bg-white shadow rounded p-4 flex flex-col gap-4">
+            <h4 class="-mx-4 bg-zinc-700 text-zinc-200 text-2xl p-4 -mt-4 mb-4 rounded-t flex-0 flex justify-between">
+                <?= $product->name ?>
+            </h4>
 
-            <section class="flex-grow grid grid-cols-12">
-                <p class="ml-4 col-span-2">
-                    <img class="w-24 h-24 " src="https://dummyimage.com/200x200/a1a1aa/fff&text=Image+Here"
+            <section class="flex-grow flex flex-row">
+                <h5 class="text-lg font-bold w-1/6 min-w-1/6">
+                    Image:
+                </h5>
+                <p class="grow">
+                    <img class="w-64 h-64 rounded-lg"
+                         src="https://dummyimage.com/200x200/a1a1aa/fff&text=Image+Here"
                          alt="">
                 </p>
-                <p class="col-span-10 text-zinc-600"><?= $product->description ?></p>
             </section>
 
-            <footer class="-mx-2 bg-zinc-200 text-zinc-900 text-lg px-4 py-1 mt-4 -mb-2 rounded-b flex-0">
-                <p>Price: $<?= $product->price / 100 ?></p>
-            </footer>
+            <section class="flex-grow flex flex-row">
+                <h5 class="text-lg font-bold w-1/6 min-w-1/6">
+                    Description:
+                </h5>
+                <p class="grow max-w-96 text-zinc-600 text-lg">
+                    <?= $product->description ?>
+                </p>
+            </section>
+
+            <section class="flex-grow flex flex-row">
+                <h5 class="text-lg font-bold w-1/6 min-w-1/6">
+                    Price:
+                </h5>
+                <p class="grow text-lg text-zinc-600">
+                    $<?= $product->price / 100 ?>
+                </p>
+            </section>
+
+            <?php
+            if (Framework\Authorisation::isOwner($product->user_id)) :
+                ?>
+                <form method="POST"
+                      class="px-4 py-4 mt-4 -mx-4 border-0 border-t-1 border-zinc-300 text-lg flex flex-row">
+                    <span class="w-1/6 min-w-1/6"></span>
+                    <a href="/products/edit/<?= $product->id ?>"
+                       class="px-16 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded transition ease-in-out duration-500">
+                        Edit
+                    </a>
+
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit"
+                            class="ml-8 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded transition ease-in-out duration-500">
+                        Delete
+                    </button>
+                </form>
+
+            <?php
+            endif;
+            ?>
 
         </section>
 

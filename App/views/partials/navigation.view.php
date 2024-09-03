@@ -1,13 +1,9 @@
 <?php
 /**
- * FILE TITLE GOES HERE
- *
- * DESCRIPTION OF THE PURPOSE AND USE OF THE CODE
- * MAY BE MORE THAN ONE LINE LONG
- * KEEP LINE LENGTH TO NO MORE THAN 96 CHARACTERS
+ * Page 'Header' and Navigation
  *
  * Filename:        navigation.view.php
- * Location:        ${FILE_LOCATION}
+ * Location:        App/views/partials
  * Project:         SaaS-FED-Notes
  * Date Created:    20/08/2024
  *

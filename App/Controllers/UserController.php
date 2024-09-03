@@ -1,13 +1,12 @@
 <?php
 /**
- * FILE TITLE GOES HERE
+ * User Controller
  *
- * DESCRIPTION OF THE PURPOSE AND USE OF THE CODE
- * MAY BE MORE THAN ONE LINE LONG
- * KEEP LINE LENGTH TO NO MORE THAN 96 CHARACTERS
+ * Provides the Register, Login and Logout capabilities
+ * of the application
  *
  * Filename:        UserController.php
- * Location:
+ * Location:        App/Controllers
  * Project:         SaaS-Vanilla-MVC
  * Date Created:    20/08/2024
  *
@@ -23,8 +22,23 @@ use Framework\Validation;
 
 class UserController
 {
+
+    /* Properties */
+
+    /**
+     * @var Database
+     */
     protected $db;
 
+    /**
+     * UserController Constructor
+     *
+     * Instantiate the database connection for use in this class
+     * storing the connection in the protected <code>$db</code>
+     * property.
+     *
+     * @throws \Exception
+     */
     public function __construct()
     {
         $config = require basePath('config/db.php');
@@ -58,12 +72,12 @@ class UserController
      */
     public function store()
     {
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $city = $_POST['city'];
-        $state = $_POST['state'];
-        $password = $_POST['password'];
-        $passwordConfirmation = $_POST['password_confirmation'];
+        $name = $_POST['name'] ?? null;
+        $email = $_POST['email'] ?? null;
+        $city = $_POST['city'] ?? null;
+        $state = $_POST['state'] ?? null;
+        $password = $_POST['password'] ?? null;
+        $passwordConfirmation = $_POST['password_confirmation'] ?? null;
 
         $errors = [];
 

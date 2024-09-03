@@ -77,6 +77,5 @@ loadPartial('navigation');
 
 
 <?php
-require_once basePath("App/views/partials/footer.view.php");
-?>
+loadPartial("footer");
 

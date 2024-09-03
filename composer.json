@@ -2,7 +2,7 @@
   "name": "adygcode/saas-vanilla-mvc",
   "description": "Vanilla PHP MVC Framework Demo",
   "type": "project",
-  "version": "0.5",
+  "version": "1.2",
   "time": "2024-08-22",
   "keywords": [
     "MVC",

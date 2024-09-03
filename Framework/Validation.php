@@ -22,17 +22,17 @@ class Validation
     /**
      * Validate a string
      *
-     * @param string $value
+     * @param $value
      * @param int $min
-     * @param int $max
+     * @param float|int $max
      * @return bool
      */
-    public static function string($value, $min = 1, $max = INF)
+    public static function string($value, int $min = 1, float|int $max = INF): bool
     {
         if (is_string($value)) {
             $value = trim($value);
             $length = strlen($value);
-            return $length >= $min && $length <= $max;
+            return $length >= $min && $length <= floor($max);
         }
 
         return false;
@@ -44,7 +44,7 @@ class Validation
      * @param string $value
      * @return mixed
      */
-    public static function email($value)
+    public static function email(string $value): mixed
     {
         $value = trim($value);
 
@@ -53,11 +53,11 @@ class Validation
 
     /**
      * Match a value against another
-     * @param string $value1
-     * @param string $value2
+     * @param $value1
+     * @param $value2
      * @return bool
      */
-    public static function match($value1, $value2)
+    public static function match($value1, $value2): bool
     {
         $value1 = trim($value1);
         $value = trim($value2);

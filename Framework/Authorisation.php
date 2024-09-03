@@ -20,12 +20,12 @@ namespace Framework;
 class Authorisation
 {
     /**
-     * Check if current logged in user owns a resource
+     * Check if current logged-in user owns a resource
      *
      * @param int $resourceId
      * @return bool
      */
-    public static function isOwner($resourceId)
+    public static function isOwner(int $resourceId): bool
     {
         $sessionUser = Session::get('user');
 

@@ -15,7 +15,7 @@
  *
  */
 
-loadpartial("header");
+loadPartial("header");
 loadPartial('navigation');
 
 ?>
@@ -29,13 +29,18 @@ loadPartial('navigation');
             </p>
         </header>
 
+        <section>
+
         <?= loadPartial('errors', [
             'errors' => $errors ?? []
         ]) ?>
 
-        <section>
             <form method="POST" action="/products/<?= $product->id ?>">
                 <input type="hidden" name="_method" value="PUT">
+
+                <h2 class="text-2xl font-bold mb-6 text-left text-gray-500">
+                    Product Information
+                </h2>
 
                 <div class="mb-4">
                     <input type="text" name="name" placeholder="Product Name"
@@ -46,7 +51,7 @@ loadPartial('navigation');
                 <div class="mb-4">
                 <textarea name="description" placeholder="Product Description"
                           class="w-full px-4 py-2 border rounded focus:outline-none"
-                ><?= $product->description ?? '' ?></textarea>
+                         ><?= $product->description ?? '' ?></textarea>
                 </div>
 
                 <div class="mb-4">
@@ -56,8 +61,8 @@ loadPartial('navigation');
                 </div>
 
                 <button type="submit"
-                        class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 my-3 rounded
-                           focus:outline-none">
+                        class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 my-3
+                               rounded focus:outline-none">
                     Save
                 </button>
 
@@ -76,6 +81,5 @@ loadPartial('navigation');
 
 
 <?php
-require_once basePath("App/views/partials/footer.view.php");
-?>
+loadPartial("footer");
 

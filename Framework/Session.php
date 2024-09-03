@@ -53,17 +53,20 @@ class Session
         session_destroy();
     }
 
+
     /**
-     * Set a flash message
+     * Clear session by key
      *
      * @param string $key
-     * @param string $message
      * @return void
      */
-    public static function setFlashMessage($key, $message)
+    public static function clear($key)
     {
-        self::set('flash_' . $key, $message);
+        if (isset($_SESSION[$key])) {
+            unset($_SESSION[$key]);
+        }
     }
+
 
     /**
      * Set a session key/value pair
@@ -75,6 +78,32 @@ class Session
     public static function set($key, $value)
     {
         $_SESSION[$key] = $value;
+    }
+
+
+    /**
+     * Get a session value by the key
+     *
+     * @param string $key
+     * @param mixed $default
+     * @return mixed
+     */
+    public static function get($key, $default = null)
+    {
+        return isset($_SESSION[$key]) ? $_SESSION[$key] : $default;
+    }
+
+
+    /**
+     * Set a flash message
+     *
+     * @param string $key
+     * @param string $message
+     * @return void
+     */
+    public static function setFlashMessage($key, $message)
+    {
+        self::set('flash_' . $key, $message);
     }
 
     /**
@@ -91,28 +120,4 @@ class Session
         return $message;
     }
 
-    /**
-     * Get a session value by the key
-     *
-     * @param string $key
-     * @param mixed $default
-     * @return mixed
-     */
-    public static function get($key, $default = null)
-    {
-        return isset($_SESSION[$key]) ? $_SESSION[$key] : $default;
-    }
-
-    /**
-     * Clear session by key
-     *
-     * @param string $key
-     * @return void
-     */
-    public static function clear($key)
-    {
-        if (isset($_SESSION[$key])) {
-            unset($_SESSION[$key]);
-        }
-    }
 }

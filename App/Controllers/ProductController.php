@@ -36,7 +36,9 @@ class ProductController
 
     public function index()
     {
-        $products = $this->db->query("SELECT * FROM products ORDER BY created_at DESC")->fetchAll();
+        $sql = "SELECT * FROM products ORDER BY created_at DESC";
+
+        $products = $this->db->query($sql)->fetchAll();
 
 
         loadView('products/index', [
@@ -69,7 +71,8 @@ class ProductController
             'id' => $id
         ];
 
-        $product = $this->db->query('SELECT * FROM products WHERE id = :id', $params)->fetch();
+        $sql = 'SELECT * FROM products WHERE id = :id';
+        $product = $this->db->query($sql, $params)->fetch();
 
         // Check if product exists
         if (!$product) {
@@ -113,43 +116,44 @@ class ProductController
                 'errors' => $errors,
                 'product' => $newProductData
             ]);
-        } else {
-            // Submit data
-            $fields = [];
-
-            foreach ($newProductData as $field => $value) {
-                $fields[] = $field;
-            }
-
-            $fields = implode(', ', $fields);
-
-            $values = [];
-
-            foreach ($newProductData as $field => $value) {
-                // Convert empty strings to null
-                if ($value === '') {
-                    $newProductData[$field] = null;
-                }
-                $values[] = ':' . $field;
-            }
-
-            $values = implode(', ', $values);
-
-            $query = "INSERT INTO products ({$fields}) VALUES ({$values})";
-
-            $this->db->query($query, $newProductData);
-
-            Session::setFlashMessage('success_message', 'Product created successfully');
-
-            redirect('/products');
         }
+
+        // Save the submitted data
+        $fields = [];
+
+        foreach ($newProductData as $field => $value) {
+            $fields[] = $field;
+        }
+
+        $fields = implode(', ', $fields);
+
+        $values = [];
+
+        foreach ($newProductData as $field => $value) {
+            // Convert empty strings to null
+            if ($value === '') {
+                $newProductData[$field] = null;
+            }
+            $values[] = ':' . $field;
+        }
+
+        $values = implode(', ', $values);
+
+        $insertQuery = "INSERT INTO products ({$fields}) VALUES ({$values})";
+
+        $this->db->query($insertQuery, $newProductData);
+
+        Session::setFlashMessage('success_message', 'Product created successfully');
+
+        redirect('/products');
     }
 
     /**
      * Delete a product
      *
      * @param array $params
-     * @return void
+     * @return void|null
+     * @throws \Exception
      */
     public function destroy($params)
     {
@@ -164,7 +168,7 @@ class ProductController
         // Check if product exists
         if (!$product) {
             ErrorController::notFound('Product not found');
-            return;
+            exit();
         }
 
         // Authorisation
@@ -185,9 +189,10 @@ class ProductController
      * Show the product edit form
      *
      * @param array $params
-     * @return void
+     * @return null
+     * @throws \Exception
      */
-    public function edit($params)
+    public function edit($params): null
     {
         $id = $params['id'] ?? '';
 
@@ -200,7 +205,7 @@ class ProductController
         // Check if product exists
         if (!$product) {
             ErrorController::notFound('Product not found');
-            return;
+            exit();
         }
 
         // Authorisation
@@ -218,9 +223,9 @@ class ProductController
      * Update a product
      *
      * @param array $params
-     * @return void
+     * @return null
      */
-    public function update($params)
+    public function update($params): null
     {
         $id = $params['id'] ?? '';
 
@@ -233,20 +238,18 @@ class ProductController
         // Check if product exists
         if (!$product) {
             ErrorController::notFound('Product not found');
-            return;
+            exit();
         }
 
         // Authorisation
         if (!Authorisation::isOwner($product->user_id)) {
-            Session::setFlashMessage('error_message', 'You are not authoirzed to update this product');
+            Session::setFlashMessage('error_message', 'You are not authorised to update this product');
             return redirect('/products/' . $product->id);
         }
 
         $allowedFields = ['name', 'description', 'price'];
 
-        $updateValues = [];
-
-        $updateValues = array_intersect_key($_POST, array_flip($allowedFields));
+        $updateValues = array_intersect_key($_POST, array_flip($allowedFields)) ?? [];
 
         $updateValues = array_map('sanitize', $updateValues);
 
@@ -266,34 +269,37 @@ class ProductController
                 'errors' => $errors
             ]);
             exit;
-        } else {
-            // Submit to database
-            $updateFields = [];
-
-            foreach (array_keys($updateValues) as $field) {
-                $updateFields[] = "{$field} = :{$field}";
-            }
-
-            $updateFields = implode(', ', $updateFields);
-
-            $updateQuery = "UPDATE products SET $updateFields WHERE id = :id";
-
-            $updateValues['id'] = $id;
-            $this->db->query($updateQuery, $updateValues);
-
-            // Set flash message
-            Session::setFlashMessage('success_message', 'Product updated');
-
-            redirect('/products/' . $id);
         }
+
+        // Submit to database
+        $updateFields = [];
+
+        foreach (array_keys($updateValues) as $field) {
+            $updateFields[] = "{$field} = :{$field}";
+        }
+
+        $updateFields = implode(', ', $updateFields);
+
+        $updateQuery = "UPDATE products SET $updateFields WHERE id = :id";
+
+        $updateValues['id'] = $id;
+        $this->db->query($updateQuery, $updateValues);
+
+        // Set flash message
+        Session::setFlashMessage('success_message', 'Product updated');
+
+        redirect('/products/' . $id);
+
     }
+
 
     /**
      * Search products by keywords/location
      *
      * @return void
      */
-    public function search()
+    public
+    function search()
     {
         $keywords = isset($_GET['keywords']) ? trim($_GET['keywords']) : '';
         $location = isset($_GET['location']) ? trim($_GET['location']) : '';

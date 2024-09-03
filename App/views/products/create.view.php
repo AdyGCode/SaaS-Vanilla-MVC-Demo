@@ -15,14 +15,12 @@
  *
  */
 
-
 loadPartial("header");
-
 loadPartial('navigation');
 
 ?>
 
-<main class="container mx-auto bg-zinc-50 py-8 px-4 shadow shadow-black/25 rounded-b-lg">
+<main class="container mx-auto bg-zinc-50 py-8 px-4 shadow shadow-black/25 rounded-b-lg flex flex-col flex-grow">
     <article>
         <header class="bg-zinc-700 text-zinc-200 -mx-4 -mt-8 p-8 mb-8 flex">
             <h1 class="grow text-2xl font-bold ">Products - Add</h1>
@@ -30,37 +28,51 @@ loadPartial('navigation');
                 <a href="/products/create">Add Product</a>
             </p>
         </header>
+
         <section>
+
+        <?= loadPartial('errors', [
+            'errors' => $errors ?? []
+        ]) ?>
+
             <form method="POST" action="/products">
-                <h2 class="text-2xl font-bold mb-6 text-center text-gray-500">
+
+                <h2 class="text-2xl font-bold mb-6 text-left text-gray-500">
                     Product Information
                 </h2>
-                <?= loadPartial('errors', [
-                    'errors' => $errors ?? []
-                ]) ?>
+
                 <div class="mb-4">
                     <input type="text" name="name" placeholder="Product Name"
                            class="w-full px-4 py-2 border rounded focus:outline-none"
-                           value="<?= $listing['title'] ?? '' ?>"/>
+                           value="<?= $product['name'] ?? '' ?>"/>
                 </div>
+
                 <div class="mb-4">
                     <textarea name="description" placeholder="Product Description"
-                              class="w-full px-4 py-2 border rounded focus:outline-none"><?= $listing['description'] ?? '' ?></textarea>
+                              class="w-full px-4 py-2 border rounded focus:outline-none"
+                             ><?= $product['description'] ?? '' ?></textarea>
                 </div>
+
                 <div class="mb-4">
                     <input type="text" name="price" placeholder="Price"
                            class="w-full px-4 py-2 border rounded focus:outline-none"
-                           value="<?= $listing['salary'] ?? '' ?>"/>
+                           value="<?= $product['price'] ?? '' ?>"/>
                 </div>
-                <button type="submit" class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 my-3
-                rounded focus:outline-none">
+
+                <button type="submit"
+                        class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 my-3
+                               rounded focus:outline-none">
                     Save
                 </button>
-                <a href="/"
-                   class="block text-center w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded focus:outline-none">
+
+                <a href="/products"
+                   class="block text-center w-full bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded
+                      focus:outline-none">
                     Cancel
                 </a>
+
             </form>
+
         </section>
 
     </article>
@@ -69,5 +81,4 @@ loadPartial('navigation');
 
 <?php
 loadPartial("footer");
-?>
 
