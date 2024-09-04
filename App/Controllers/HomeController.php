@@ -37,11 +37,17 @@ class HomeController
      */
     public function index()
     {
-        $products = $this->db->query('SELECT * FROM products ORDER BY created_at DESC LIMIT 6')->fetchAll();
+        $lastSixQuery = 'SELECT * FROM products ORDER BY created_at DESC LIMIT 0,6';
+        $simpleRandomSixQuery = 'SELECT * FROM products ORDER BY RAND() LIMIT 0,6';
 
-        $productCount = $this->db->query('SELECT count(id) as total FROM products ')->fetch();
+        $products = $this->db->query($simpleRandomSixQuery)
+            ->fetchAll();
 
-        $userCount = $this->db->query('SELECT count(id) as total FROM users')->fetch();
+        $productCount = $this->db->query('SELECT count(id) as total FROM products ')
+            ->fetch();
+
+        $userCount = $this->db->query('SELECT count(id) as total FROM users')
+            ->fetch();
 
         loadView('home', [
             'products' => $products,

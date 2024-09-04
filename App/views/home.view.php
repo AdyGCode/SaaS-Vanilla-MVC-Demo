@@ -43,7 +43,7 @@ loadPartial('navigation');
 
         </section>
 
-        <section class="flex flex-wrap gap-8 justify-center">
+        <section class="my-8 flex flex-wrap gap-8 justify-center">
 
             <?php
             foreach ($products as $product):
@@ -75,6 +75,36 @@ loadPartial('navigation');
             <?php
             endforeach
             ?>
+        </section>
+
+        <section  class="mx-auto w-1/2 m-8 bg-zinc-200 text-zinc-800 p-8 rounded-lg shadow">
+            <dl class="flex flex-col gap-2">
+                <dt>Tutorial:</dt>
+                <dd>Part 1:
+                    <a href="https://github.com/AdyGCode/SaaS-FED-Notes/tree/main/session-07">
+                        https://github.com/AdyGCode/SaaS-FED-Notes/tree/main/session-07
+                    </a>
+                </dd>
+                <dd>Part 2:
+                    <a href="https://github.com/AdyGCode/SaaS-FED-Notes/tree/main/session-07">
+                        https://github.com/AdyGCode/SaaS-FED-Notes/tree/main/session-07
+                    </a>
+                </dd>
+                <dt>Source Code:</dt>
+                <dd>
+                    <a href="https://github.com/AdyGCode/SaaS-Vanilla-MVC-Demo">
+                        https://github.com/AdyGCode/SaaS-Vanilla-MVC-Demo
+                    </a>
+                </dd>
+                <dt>HelpDesk</dt>
+                <dd><a href="https://help.screencraft.net.au"></a></dd>
+                <dt>HelpDesk FAQs</dt>
+                <dd><a href="https://help.screencraft.net.au"></a>
+                </dd>
+                <dt>Make a HelpDesk Request (TAFE Students only)</dt>
+                <dd><a href="https://help.screencraft.net.au"></a></dd>
+            </dl>
+
         </section>
 
     </article>

@@ -60,7 +60,7 @@ class ProductController
     /**
      * Show a single product
      *
-     * @param array $params
+     * @param  array  $params
      * @return void
      */
     public function show($params)
@@ -106,7 +106,7 @@ class ProductController
 
         foreach ($requiredFields as $field) {
             if (empty($newProductData[$field]) || !Validation::string($newProductData[$field])) {
-                $errors[$field] = ucfirst($field) . ' is required';
+                $errors[$field] = ucfirst($field).' is required';
             }
         }
 
@@ -134,7 +134,7 @@ class ProductController
             if ($value === '') {
                 $newProductData[$field] = null;
             }
-            $values[] = ':' . $field;
+            $values[] = ':'.$field;
         }
 
         $values = implode(', ', $values);
@@ -151,7 +151,7 @@ class ProductController
     /**
      * Delete a product
      *
-     * @param array $params
+     * @param  array  $params
      * @return void|null
      * @throws \Exception
      */
@@ -174,7 +174,7 @@ class ProductController
         // Authorisation
         if (!Authorisation::isOwner($product->user_id)) {
             Session::setFlashMessage('error_message', 'You are not authoirzed to delete this product');
-            return redirect('/products/' . $product->id);
+            return redirect('/products/'.$product->id);
         }
 
         $this->db->query('DELETE FROM products WHERE id = :id', $params);
@@ -188,7 +188,7 @@ class ProductController
     /**
      * Show the product edit form
      *
-     * @param array $params
+     * @param  array  $params
      * @return null
      * @throws \Exception
      */
@@ -210,8 +210,9 @@ class ProductController
 
         // Authorisation
         if (!Authorisation::isOwner($product->user_id)) {
-            Session::setFlashMessage('error_message', 'You are not authoirzed to update this product');
-            return redirect('/products/' . $product->id);
+            Session::setFlashMessage('error_message',
+                'You are not authorized to update this product');
+            return redirect('/products/'.$product->id);
         }
 
         loadView('products/edit', [
@@ -222,7 +223,7 @@ class ProductController
     /**
      * Update a product
      *
-     * @param array $params
+     * @param  array  $params
      * @return null
      */
     public function update($params): null
@@ -243,8 +244,9 @@ class ProductController
 
         // Authorisation
         if (!Authorisation::isOwner($product->user_id)) {
-            Session::setFlashMessage('error_message', 'You are not authorised to update this product');
-            return redirect('/products/' . $product->id);
+            Session::setFlashMessage('error_message',
+                'You are not authorised to update this product');
+            return redirect('/products/'.$product->id);
         }
 
         $allowedFields = ['name', 'description', 'price'];
@@ -259,7 +261,7 @@ class ProductController
 
         foreach ($requiredFields as $field) {
             if (empty($updateValues[$field]) || !Validation::string($updateValues[$field])) {
-                $errors[$field] = ucfirst($field) . ' is required';
+                $errors[$field] = ucfirst($field).' is required';
             }
         }
 
@@ -288,7 +290,7 @@ class ProductController
         // Set flash message
         Session::setFlashMessage('success_message', 'Product updated');
 
-        redirect('/products/' . $id);
+        redirect('/products/'.$id);
 
     }
 
@@ -298,11 +300,9 @@ class ProductController
      *
      * @return void
      */
-    public
-    function search()
+    public function search()
     {
         $keywords = isset($_GET['keywords']) ? trim($_GET['keywords']) : '';
-        $location = isset($_GET['location']) ? trim($_GET['location']) : '';
 
         $query = "SELECT * FROM products WHERE name LIKE :keywords OR description LIKE :keywords ";
 

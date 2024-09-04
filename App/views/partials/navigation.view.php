@@ -40,7 +40,7 @@ $authenticated = new Authorise();
                 Products
             </a></p>
 
-        <p class="flex-grow"></p>
+        <div class="flex-grow"></div>
 
         <?php
         if ($authenticated->isAuthenticated()):
@@ -74,7 +74,11 @@ $authenticated = new Authorise();
         <form method="GET" action="/products/search" class="block mx-5">
             <input type="text" name="keywords" placeholder="Product search..."
                    class="w-full md:w-auto px-4 py-2 focus:outline-none"/>
-            <button class="w-full md:w-auto bg-sky-500 hover:bg-sky-600 text-white px-4 py-2 focus:outline-none transition ease-in-out duration-500">
+            <button class="w-full md:w-auto
+                           bg-sky-500 hover:bg-sky-600
+                           text-white
+                           px-4 py-2
+                           focus:outline-none transition ease-in-out duration-500">
                 <i class="fa fa-search"></i> Search
             </button>
         </form>

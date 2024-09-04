@@ -13,11 +13,15 @@
 ?>
 
 <footer class="bg-black text-zinc-500 p-4 mt-8 flex flex-wrap flex-row text-sm">
-    <section class="w-1/2 p-8">
-        <p>&copy; Copyright 2024 YOUR_NAME. All rights reserved.</p>
+    <section class="w-1/2 p-8 flex flex-col gap-2">
+        <p class="text-zinc-400">&copy; Copyright 2024 YOUR_NAME. All rights reserved.</p>
         <p class="text-xs">
-            Based on a <a href="https://github.com/AdyGCode/SaaS-FED-Notes/tree/main/session-07"
-                          class="text-zinc-500 hover:text-white underline">tutorial</a>
+            Based on the <a href="https://github.com/bradtraversy/workopia-php"
+                            class="text-zinc-500 hover:text-white underline underline-offset-2">Workopia Project</a> from the
+            <a href="https://www.traversymedia.com/php-from-scratch"
+               class="text-zinc-500 hover:text-white underline underline-offset-2">PHP From Scratch</a> course, and the subsequent
+            <a href="https://github.com/AdyGCode/SaaS-FED-Notes/tree/main/session-07"
+               class="text-zinc-500 hover:text-white underline underline-offset-2">supporting tutorial</a>
             by <a href="https://adygcode.github.io"
                   class="text-zinc-500 hover:text-white">Adrian Gould</a> &
             <a href="https://adygcode.github.io"
@@ -26,11 +30,12 @@
         <p>License: MIT Open Source Licensing</p>
     </section>
     <section class="w-1/2 p-8 text-xs">
-        <ul>
-            <li><a href="#" class="text-zinc-500 hover:text-white">link 1</a></li>
-            <li><a href="#" class="text-zinc-500 hover:text-white">link 2</a></li>
-            <li><a href="#" class="text-zinc-500 hover:text-white">link 3</a></li>
-            <li><a href="#" class="text-zinc-500 hover:text-white">link 4</a></li>
+        <h6 class="font-bold mb-2">Links</h6>
+        <ul class=" flex flex-col gap-1">
+            <li><a href="/auth/register" class="text-zinc-500 hover:text-white underline underline-offset-2">Register</a></li>
+            <li><a href="#" class="text-zinc-500 hover:text-white underline underline-offset-2">About</a></li>
+            <li><a href="#" class="text-zinc-500 hover:text-white underline underline-offset-2">Privacy</a></li>
+            <li><a href="#" class="text-zinc-500 hover:text-white underline underline-offset-2">Contact Us</a></li>
         </ul>
     </section>
 

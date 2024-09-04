@@ -16,6 +16,7 @@
  */
 
 $router->get('/', 'HomeController@index');
+
 $router->get('/products', 'ProductController@index');
 $router->get('/products/create', 'ProductController@create', ['auth']);
 $router->get('/products/edit/{id}', 'ProductController@edit', ['auth']);

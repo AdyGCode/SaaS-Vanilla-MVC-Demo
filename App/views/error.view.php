@@ -41,7 +41,6 @@ loadPartial('navigation');
             </div>
 
         </div>
-
     </section>
 <?php
 
