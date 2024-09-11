@@ -22,6 +22,9 @@ use Framework\Database;
 use Framework\Session;
 use Framework\Validation;
 
+use Parsedown;
+
+
 class ProductController
 {
 
@@ -40,6 +43,7 @@ class ProductController
 
         $products = $this->db->query($sql)->fetchAll();
 
+        $parsedown = new Parsedown();
 
         loadView('products/index', [
             'products' => $products
@@ -56,6 +60,7 @@ class ProductController
     {
         loadView('products/create');
     }
+
 
     /**
      * Show a single product
@@ -79,6 +84,11 @@ class ProductController
             ErrorController::notFound('Product not found');
             return;
         }
+
+        $parsedown = new Parsedown();
+        $parsedown->setSafeMode(true)->setBreaksEnabled(true);
+        $html = $parsedown->text($product->description);
+        $product->description = $html;
 
         loadView('products/show', [
             'product' => $product

@@ -35,26 +35,26 @@ loadPartial('navigation');
             'errors' => $errors ?? []
         ]) ?>
 
-            <form method="POST" action="/products">
+            <form id="ProductForm" method="POST" action="/products">
 
                 <h2 class="text-2xl font-bold mb-6 text-left text-gray-500">
                     Product Information
                 </h2>
 
                 <div class="mb-4">
-                    <input type="text" name="name" placeholder="Product Name"
+                    <input id="Name" type="text" name="name" placeholder="Product Name"
                            class="w-full px-4 py-2 border rounded focus:outline-none"
                            value="<?= $product['name'] ?? '' ?>"/>
                 </div>
 
                 <div class="mb-4">
-                    <textarea name="description" placeholder="Product Description"
+                    <textarea id="Description" name="description" placeholder="Product Description"
                               class="w-full px-4 py-2 border rounded focus:outline-none"
                              ><?= $product['description'] ?? '' ?></textarea>
                 </div>
 
                 <div class="mb-4">
-                    <input type="text" name="price" placeholder="Price"
+                    <input id="Price" type="text" name="price" placeholder="Price"
                            class="w-full px-4 py-2 border rounded focus:outline-none"
                            value="<?= $product['price'] ?? '' ?>"/>
                 </div>
@@ -77,7 +77,6 @@ loadPartial('navigation');
 
     </article>
 </main>
-
 
 <?php
 loadPartial("footer");

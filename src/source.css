@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.parsedown h1 {
+    @apply mt-0 mb-4 text-2xl border-0 border-b-2 border-zinc-400 p-2
+}
+
+.parsedown h2 {
+    @apply mt-0 mb-4 text-2xl border-0 border-b-2 border-zinc-300 p-2
+}
+
+.parsedown h3 {
+    @apply mt-0 mb-4 text-xl border-0 border-b-2 border-zinc-200 p-2
+}
+
+.parsedown h4 {
+    @apply mt-0 mb-4 text-xl  border-0 border-b-2 border-zinc-100 p-2
+}
+
+.parsedown p {
+    @apply my-2
+}

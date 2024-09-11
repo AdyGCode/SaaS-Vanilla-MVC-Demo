@@ -50,9 +50,9 @@ loadPartial('navigation');
                 <h5 class="text-lg font-bold w-1/6 min-w-1/6">
                     Description:
                 </h5>
-                <p class="grow max-w-96 text-zinc-600 text-lg">
+                <section class="parsedown grow max-w-96 text-zinc-600 text-lg">
                     <?= $product->description ?>
-                </p>
+                </section>
             </section>
 
             <section class="flex-grow flex flex-row">

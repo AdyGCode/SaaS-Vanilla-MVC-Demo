@@ -25,7 +25,7 @@ loadPartial('navigation');
         <header class="bg-zinc-700 text-zinc-200 -mx-4 -mt-8 p-8 mb-8 flex">
             <h1 class="grow text-2xl font-bold ">Products - Edit</h1>
             <p class="text-md flex-0 px-8 py-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded transition ease-in-out duration-500">
-                <a href="/products/create">Add Product</a>
+                <a href="/products/create">Edit Product</a>
             </p>
         </header>
 
@@ -35,7 +35,7 @@ loadPartial('navigation');
             'errors' => $errors ?? []
         ]) ?>
 
-            <form method="POST" action="/products/<?= $product->id ?>">
+            <form id="ProductForm" method="POST" action="/products/<?= $product->id ?>">
                 <input type="hidden" name="_method" value="PUT">
 
                 <h2 class="text-2xl font-bold mb-6 text-left text-gray-500">
@@ -43,19 +43,19 @@ loadPartial('navigation');
                 </h2>
 
                 <div class="mb-4">
-                    <input type="text" name="name" placeholder="Product Name"
+                    <input id="Name" type="text" name="name" placeholder="Product Name"
                            class="w-full px-4 py-2 border rounded focus:outline-none"
                            value="<?= $product->name ?? '' ?>"/>
                 </div>
 
                 <div class="mb-4">
-                <textarea name="description" placeholder="Product Description"
+                <textarea id="Description" name="description" placeholder="Product Description"
                           class="w-full px-4 py-2 border rounded focus:outline-none"
                          ><?= $product->description ?? '' ?></textarea>
                 </div>
 
                 <div class="mb-4">
-                    <input type="text" name="price" placeholder="Price"
+                    <input id="Price" type="text" name="price" placeholder="Price"
                            class="w-full px-4 py-2 border rounded focus:outline-none"
                            value="<?= $product->price ?? '' ?>"/>
                 </div>
