@@ -11,6 +11,8 @@
  *
  */
 
+use JetBrains\PhpStorm\NoReturn;
+
 /**
  * Get the base path
  *
@@ -99,11 +101,9 @@ function inspectAndDie($value)
  */
  function dump(): void
 {
-    echo "<pre class='bg-gray-100 color-black m-2 p-2 rounded shadow flex-grow text-sm'>";
     array_map(function ($x) {
         var_dump($x);
     }, func_get_args());
-    echo "</pre>";
 }
 
 /**
@@ -113,11 +113,16 @@ function inspectAndDie($value)
  */
  function dd(): void
 {
-    echo "<pre class='bg-gray-100 color-black m-2 p-2 rounded shadow flex-grow text-sm'>";
+    // Load the HTML header for formatting...
+    loadPartial("header");
+    echo "<section class='flex flex-col gap-8'>";
     array_map(function ($x) {
+
+        echo "<pre class='border bg-gray-100 color-black m-2 p-2 rounded shadow text-sm'>";
         var_dump($x);
+        echo "</pre>";
     }, func_get_args());
-    echo "</pre>";
+    echo "</section>";
     die();
 }
 
@@ -128,9 +133,12 @@ function inspectAndDie($value)
  * @param string $dirty
  * @return string
  */
-function sanitize($dirty)
+function sanitize(string $dirty): string
 {
-    return filter_var(trim($dirty), FILTER_SANITIZE_SPECIAL_CHARS);
+    // Sanitize the input while preserving new lines
+    $sanitized = htmlspecialchars($dirty, ENT_QUOTES, 'UTF-8');
+    // Replace escaped new lines with actual new lines and return result
+    return str_replace(['&#10;', '&#13;'], ["\n", "\r"], $sanitized);
 }
 
 /**
@@ -139,7 +147,7 @@ function sanitize($dirty)
  * @param string $url
  * @return void
  */
-function redirect($url)
+#[NoReturn] function redirect(string $url): void
 {
     header("Location: {$url}");
     exit;

@@ -49,8 +49,9 @@ loadPartial('navigation');
                 </div>
 
                 <div class="mb-4">
-                <textarea id="Description" name="description" placeholder="Product Description"
-                          class="w-full px-4 py-2 border rounded focus:outline-none"
+                    <div id="toolbar"></div>
+                    <textarea id="Description" name="description" placeholder="Product Description"
+                          class="w-full px-4 py-2 border border-zinc-500 rounded focus:outline-none"
                          ><?= $product->description ?? '' ?></textarea>
                 </div>
 

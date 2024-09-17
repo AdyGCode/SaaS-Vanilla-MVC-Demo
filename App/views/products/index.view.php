@@ -46,26 +46,26 @@ loadPartial('navigation');
             foreach ($products ?? [] as $product):
                 ?>
                 <!--            article>(header>h4{Name})+(section>p{Description})+(footer>p{Price})-->
-                <article class="max-w-96 min-w-64 bg-white shadow rounded flex flex-col">
-                    <header class="bg-zinc-700 text-zinc-200 text-lg p-4 -mt-2 mb-4 rounded-t flex-0">
+                <article class="max-w-96 min-w-64 bg-white border border-zinc-400 shadow rounded flex flex-col overflow-hidden">
+                    <header class="-mx-2 bg-zinc-700 text-zinc-200 text-lg p-4 rounded-t flex-0">
                         <h4>
                             <?= $product->name ?>
                         </h4>
                     </header>
-                    <section class="flex-grow grid grid-cols-5 px-4 py-0 gap-4">
-                        <p class="col-span-2 p-0 pt-2">
-                            <img class="w-24 h-24 " src="https://dummyimage.com/200x200/a1a1aa/fff&text=Image+Here"
-                                 alt="">
-                        </p>
-                        <p class="col-span-3 text-zinc-600 p-0"><?= $product->description ?></p>
+                    <img class="h-56 w-full object-cover" src="https://picsum.photos/640/480"
+                         alt="">
+                    <section class="flex-grow p-4">
+                        <div class="text-zinc-600 bg-white parsedown">
+                            <?= $product->description ?>
+                        </div>
                     </section>
-                    <a href="/products/<?= $product->id ?>"
-                       class="w-full text-center text-sm text-zinc-900 font-medium
-                        bg-zinc-200 hover:bg-zinc-300 block
-                        py-2 mt-4 -mb-2 rounded-b
-                        transition ease-in-out duration-500">
-                        Details...
-                    </a>
+                    <footer class="-mx-2 bg-zinc-200 text-zinc-900 text-sm px-4 py-4 -mb-2 rounded-b flex-0 flex justify-between">
+                        <p class="">Price: $<?= $product->price / 100 ?></p>
+                        <a href="/products/<?= $product->id ?>"
+                           class="">
+                            More details...
+                        </a>
+                    </footer>
                 </article>
             <?php
             endforeach

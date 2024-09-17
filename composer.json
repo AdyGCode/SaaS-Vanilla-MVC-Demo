@@ -30,7 +30,10 @@
   "require": {
     "php": ">=8.2",
     "ext-pdo": "*",
-    "erusev/parsedown": "^1.7"
+    "erusev/parsedown": "^1.7",
+    "league/html-to-markdown": "^5.1",
+    "erusev/parsedown-extra": "^0.8.1",
+    "league/commonmark": "^2.5"
   },
   "autoload": {
     "psr-4": {

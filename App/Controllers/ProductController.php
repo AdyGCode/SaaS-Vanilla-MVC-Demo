@@ -21,7 +21,7 @@ use Framework\Authorisation;
 use Framework\Database;
 use Framework\Session;
 use Framework\Validation;
-
+use League\HTMLToMarkdown\HtmlConverter;
 use Parsedown;
 
 
@@ -43,8 +43,6 @@ class ProductController
 
         $products = $this->db->query($sql)->fetchAll();
 
-        $parsedown = new Parsedown();
-
         loadView('products/index', [
             'products' => $products
         ]);
@@ -65,7 +63,7 @@ class ProductController
     /**
      * Show a single product
      *
-     * @param  array  $params
+     * @param array $params
      * @return void
      */
     public function show($params)
@@ -84,11 +82,6 @@ class ProductController
             ErrorController::notFound('Product not found');
             return;
         }
-
-        $parsedown = new Parsedown();
-        $parsedown->setSafeMode(true)->setBreaksEnabled(true);
-        $html = $parsedown->text($product->description);
-        $product->description = $html;
 
         loadView('products/show', [
             'product' => $product
@@ -116,7 +109,7 @@ class ProductController
 
         foreach ($requiredFields as $field) {
             if (empty($newProductData[$field]) || !Validation::string($newProductData[$field])) {
-                $errors[$field] = ucfirst($field).' is required';
+                $errors[$field] = ucfirst($field) . ' is required';
             }
         }
 
@@ -127,6 +120,35 @@ class ProductController
                 'product' => $newProductData
             ]);
         }
+
+
+        // accept the Markdown from the form and store as HTML
+        if (isset($newProductData['description'])) {
+            $description = $newProductData['description'] ?? '';
+            // Normalize line endings to \n
+            $description = preg_replace('/\r\n|\r|\n/', "\n", $description);
+
+            // Split the Markdown content by double new lines to handle paragraphs
+            $paragraphs = preg_split('/\n{2,}/', $description);
+
+
+            $parsedown = new Parsedown();
+            // Convert each paragraph to HTML
+            $finalHtml = '';
+            foreach ($paragraphs as $paragraph) {
+                $trimmedParagraph = trim($paragraph);
+                if ($trimmedParagraph !== '') {
+                    $html = $parsedown->text($trimmedParagraph);
+                    if (!preg_match('/^<(h[1-6]|ul|ol|li|blockquote|pre|table|div|p)/i', $html)) {
+                        $finalHtml .= '<p>' . $html . '</p>';
+                    } else {
+                        $finalHtml .= $html;
+                    }
+                }
+            }
+            $newProductData['description'] = $finalHtml;
+        }
+
 
         // Save the submitted data
         $fields = [];
@@ -144,7 +166,7 @@ class ProductController
             if ($value === '') {
                 $newProductData[$field] = null;
             }
-            $values[] = ':'.$field;
+            $values[] = ':' . $field;
         }
 
         $values = implode(', ', $values);
@@ -161,7 +183,7 @@ class ProductController
     /**
      * Delete a product
      *
-     * @param  array  $params
+     * @param array $params
      * @return void|null
      * @throws \Exception
      */
@@ -184,7 +206,7 @@ class ProductController
         // Authorisation
         if (!Authorisation::isOwner($product->user_id)) {
             Session::setFlashMessage('error_message', 'You are not authoirzed to delete this product');
-            return redirect('/products/'.$product->id);
+            return redirect('/products/' . $product->id);
         }
 
         $this->db->query('DELETE FROM products WHERE id = :id', $params);
@@ -198,7 +220,7 @@ class ProductController
     /**
      * Show the product edit form
      *
-     * @param  array  $params
+     * @param array $params
      * @return null
      * @throws \Exception
      */
@@ -222,18 +244,23 @@ class ProductController
         if (!Authorisation::isOwner($product->user_id)) {
             Session::setFlashMessage('error_message',
                 'You are not authorized to update this product');
-            return redirect('/products/'.$product->id);
+            return redirect('/products/' . $product->id);
         }
+
+        $converter = new HtmlConverter();
+
+        $product->description = $converter->convert($product->description ?? '');
 
         loadView('products/edit', [
             'product' => $product
         ]);
+        return null;
     }
 
     /**
      * Update a product
      *
-     * @param  array  $params
+     * @param array $params
      * @return null
      */
     public function update($params): null
@@ -256,7 +283,7 @@ class ProductController
         if (!Authorisation::isOwner($product->user_id)) {
             Session::setFlashMessage('error_message',
                 'You are not authorised to update this product');
-            return redirect('/products/'.$product->id);
+            return redirect('/products/' . $product->id);
         }
 
         $allowedFields = ['name', 'description', 'price'];
@@ -271,7 +298,7 @@ class ProductController
 
         foreach ($requiredFields as $field) {
             if (empty($updateValues[$field]) || !Validation::string($updateValues[$field])) {
-                $errors[$field] = ucfirst($field).' is required';
+                $errors[$field] = ucfirst($field) . ' is required';
             }
         }
 
@@ -281,6 +308,32 @@ class ProductController
                 'errors' => $errors
             ]);
             exit;
+        }
+
+        if (isset($updateValues['description'])) {
+            $description = $updateValues['description'] ?? '';
+            // Normalize line endings to \n
+            $description = preg_replace('/\r\n|\r|\n/', "\n", $description);
+
+            // Split the Markdown content by double new lines to handle paragraphs
+            $paragraphs = preg_split('/\n{2,}/', $description);
+
+
+            $parsedown = new Parsedown();
+            // Convert each paragraph to HTML
+            $finalHtml = '';
+            foreach ($paragraphs as $paragraph) {
+                $trimmedParagraph = trim($paragraph);
+                if ($trimmedParagraph !== '') {
+                    $html = $parsedown->text($trimmedParagraph);
+                    if (!preg_match('/^<(h[1-6]|ul|ol|li|blockquote|pre|table|div|p)/i', $html)) {
+                        $finalHtml .= '<p>' . $html . '</p>';
+                    } else {
+                        $finalHtml .= $html;
+                    }
+                }
+            }
+            $updateValues['description'] = $finalHtml;
         }
 
         // Submit to database
@@ -300,7 +353,7 @@ class ProductController
         // Set flash message
         Session::setFlashMessage('success_message', 'Product updated');
 
-        redirect('/products/'.$id);
+        redirect('/products/' . $id);
 
     }
 

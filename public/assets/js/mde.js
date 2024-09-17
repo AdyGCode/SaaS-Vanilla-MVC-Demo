@@ -5,7 +5,7 @@ var simplemde = new SimpleMDE({
     autofocus: true,
     indentWithTabs: true,
     renderingConfig: {
-        singleLineBreaks: false,
+        singleLineBreaks: true,
     },
     autosave: {
         enabled: true,
