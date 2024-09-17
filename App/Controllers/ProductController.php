@@ -21,6 +21,7 @@ use Framework\Authorisation;
 use Framework\Database;
 use Framework\Session;
 use Framework\Validation;
+use JetBrains\PhpStorm\NoReturn;
 use League\HTMLToMarkdown\HtmlConverter;
 use Parsedown;
 
@@ -28,8 +29,11 @@ use Parsedown;
 class ProductController
 {
 
-    protected $db;
+    protected Database $db;
 
+    /**
+     * @throws \Exception
+     */
     public function __construct()
     {
         $config = require basePath('config/db.php');
@@ -37,7 +41,13 @@ class ProductController
     }
 
 
-    public function index()
+    /**
+     * Produce home page
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function index(): void
     {
         $sql = "SELECT * FROM products ORDER BY created_at DESC";
 
@@ -54,7 +64,7 @@ class ProductController
      *
      * @return void
      */
-    public function create()
+    public function create(): void
     {
         loadView('products/create');
     }
@@ -65,8 +75,9 @@ class ProductController
      *
      * @param array $params
      * @return void
+     * @throws \Exception
      */
-    public function show($params)
+    public function show(array $params): void
     {
         $id = $params['id'] ?? '';
 
@@ -92,8 +103,9 @@ class ProductController
      * Store data in database
      *
      * @return void
+     * @throws \Exception
      */
-    public function store()
+    #[NoReturn] public function store()
     {
         $allowedFields = ['name', 'description', 'price'];
 
@@ -181,50 +193,13 @@ class ProductController
     }
 
     /**
-     * Delete a product
-     *
-     * @param array $params
-     * @return void|null
-     * @throws \Exception
-     */
-    public function destroy($params)
-    {
-        $id = $params['id'];
-
-        $params = [
-            'id' => $id
-        ];
-
-        $product = $this->db->query('SELECT * FROM products WHERE id = :id', $params)->fetch();
-
-        // Check if product exists
-        if (!$product) {
-            ErrorController::notFound('Product not found');
-            exit();
-        }
-
-        // Authorisation
-        if (!Authorisation::isOwner($product->user_id)) {
-            Session::setFlashMessage('error_message', 'You are not authoirzed to delete this product');
-            return redirect('/products/' . $product->id);
-        }
-
-        $this->db->query('DELETE FROM products WHERE id = :id', $params);
-
-        // Set flash message
-        Session::setFlashMessage('success_message', 'Product deleted successfully');
-
-        redirect('/products');
-    }
-
-    /**
      * Show the product edit form
      *
      * @param array $params
      * @return null
      * @throws \Exception
      */
-    public function edit($params): null
+    public function edit(array $params): null
     {
         $id = $params['id'] ?? '';
 
@@ -262,8 +237,9 @@ class ProductController
      *
      * @param array $params
      * @return null
+     * @throws \Exception
      */
-    public function update($params): null
+    #[NoReturn] public function update(array $params): null
     {
         $id = $params['id'] ?? '';
 
@@ -362,8 +338,9 @@ class ProductController
      * Search products by keywords/location
      *
      * @return void
+     * @throws \Exception
      */
-    public function search()
+    public function search(): void
     {
         $keywords = isset($_GET['keywords']) ? trim($_GET['keywords']) : '';
 
